@@ -1,0 +1,13 @@
+{
+  "planner_mode": 0, 
+  "map_resolution": 0.05,
+  "docker": {
+  "position": [810,410],
+  "unit": "px"
+   },
+   "robot": {
+    "orientation": 180,
+    "unit": "deg"
+   },
+  "debug_mode": 0
+  }

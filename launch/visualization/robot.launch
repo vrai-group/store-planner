@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <!-- enable visualizations -->
+  <arg name="rviz_enabled" default="false"/>
+
+  <!-- robot args -->
+  <arg name="laser_model"  default="sick-571"/>
+  <arg name="rgbd_sensors"  default="false"/> <!-- not necessary for navigation -->
+  <arg name="gzpose" default="-x 0.0 -y 0.0 -z 0.0 -R 0.0 -P 0.0 -Y 0.0"/>
+  <arg name="public_sim" default="false"/>
+  <arg name="simple_sim_model" default="false"/>
+
+  <!-- spawn Tiago-Base robot in simulation -->
+
+<!-- launches the robot model/description and spawn it in gazebo and also the gazebo controllers  -->
+<!-- spawn Tiago-Base robot in simulation -->
+  <group unless="$(arg simple_sim_model)">
+    <include file="$(find pmb2_gazebo)/launch/pmb2_spawn.launch">
+      <arg name="laser_model" value="$(arg laser_model)"/>
+      <arg name="rgbd_sensors" value="$(arg rgbd_sensors)"/>
+      <arg name="gzpose" value="$(arg gzpose)"/>
+    </include>
+  </group>
+
+  <group if="$(arg simple_sim_model)">
+    <include file="$(find simple_models_gazebo)/launch/simple_models_spawn.launch">
+      <arg name="laser_model" value="$(arg laser_model)"/>
+      <arg name="gzpose" value="$(arg gzpose)"/>
+      <arg name="robot" value="simple_pmb2"/>
+    </include>
+
+    <node name="increase_real_time_factor" pkg="pal_gazebo_worlds" type="increase_real_time_factor" output="screen">
+      <param name="real_time_factor" value="6.0"/>
+    </node>
+
+  </group>
+
+  <!-- bring up Tiago-Base (controllers, robot state publisher and twist mux) -->
+
+<!-- robot state publisher calculates the forward kinematics of the robot and publish the results on the tf given the robot description (links and joints) -->
+<!-- twist is needed when there are more than a single source to move a robot so that the mux gives right priority -->
+  <include file="$(find pmb2_gazebo)/launch/simulation_pmb2_bringup.launch">
+    <arg name="public_sim"  value="$(arg public_sim)"/>
+    <arg name="simple_sim_model"  value="$(arg simple_sim_model)"/>
+  </include>
+
+<!-- spawn robot in rviz -->
+<group if="$(arg rviz_enabled)">
+  <node type="rviz" name="rviz" pkg="rviz" args="-d $(find store-planner)/config/rviz/default.rviz" />
+ </group>
+</launch>

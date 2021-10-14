@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+
+  <env name="LC_NUMERIC" value="C" />
+
+  <!-- start up world -->
+  <include file="$(find store-planner)/launch/visualization/world.launch"> </include>
+  
+  <!-- start up robot -->
+  <include file="$(find store-planner)/launch/visualization/robot.launch"> </include>
+
+</launch>

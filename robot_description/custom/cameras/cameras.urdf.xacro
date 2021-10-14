@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+
+<!-- RGBD camera -->
+<xacro:include filename="$(find store-planner)/robot_description/custom/cameras/rgbd_camera.urdf.xacro"/>
+
+<!--<xacro:include filename="$(find store-planner)/robot_description/custom/cameras/elp_rgb.urdf.xacro"/>-->
+
+  <!-- TODO: inherit them from support file -->
+  <xacro:property name="base_height"   value="0.195"/>
+  <xacro:property name="robot_height"   value="1.8"/>
+  <xacro:property name="support_x"   value="0.3"/> <!-- support length on x-->
+  <xacro:property name="support_y"   value="0.15"/> <!-- support length on y-->
+  <xacro:property name="support_z"   value="${robot_height-base_height}"/> <!-- support height-->
+
+
+<!--  <xacro:property name="camera_type" value="kinect"/> TODO.--> 
+  <!-- top-left camera -->
+<!--  <xacro:property name="tl_rgbd_x" value="0.0"/>-->
+<!--  <xacro:property name="tl_rgbd_y" value="${support_y/2}"/>-->
+<!--  <xacro:property name="tl_rgbd_z" value="${robot_height - base_height}"/>-->
+<!--  <xacro:property name="tl_rgbd_R" value="0.0"/> --> <!-- rotations are with respect world axis-->
+<!--  <xacro:property name="tl_rgbd_P" value="0.0"/> --> <!-- -10.0-->
+<!--  <xacro:property name="tl_rgbd_Y" value="90.0"/>-->
+
+  <!-- top-right camera -->
+  <xacro:property name="tr_rgbd_x" value="0.0"/>
+  <xacro:property name="tr_rgbd_y" value="${-support_y/2}"/>
+  <xacro:property name="tr_rgbd_z" value="${robot_height - base_height}"/>
+  <xacro:property name="tr_rgbd_R" value="0.0"/>
+  <xacro:property name="tr_rgbd_P" value="0.0"/> <!-- -10.0-->
+  <xacro:property name="tr_rgbd_Y" value="-90.0"/>
+
+  <!-- middle-left camera -->
+<!--  <xacro:property name="ml_rgbd_x" value="0.0"/>-->
+<!--  <xacro:property name="ml_rgbd_y" value="${support_y/2}"/>-->
+<!--  <xacro:property name="ml_rgbd_z" value="${2/3*robot_height - 2*base_height}"/>-->
+ <!-- <xacro:property name="ml_rgbd_R" value="0.0"/> --> <!-- rotations are with respect world axis-->
+ <!-- <xacro:property name="ml_rgbd_P" value="0.0"/> --> <!-- -10.0-->
+<!--  <xacro:property name="ml_rgbd_Y" value="90.0"/>-->
+
+  <!-- middle-right camera -->
+  <xacro:property name="mr_rgbd_x" value="0.0"/>
+  <xacro:property name="mr_rgbd_y" value="${-support_y/2}"/>
+  <xacro:property name="mr_rgbd_z" value="${2/3*robot_height - 2*base_height}"/>
+  <xacro:property name="mr_rgbd_R" value="0.0"/>
+  <xacro:property name="mr_rgbd_P" value="0.0"/><!-- -10.0-->
+  <xacro:property name="mr_rgbd_Y" value="-90.0"/>
+	
+  <!-- bottom-left camera -->
+<!--  <xacro:property name="bl_rgbd_x" value="0.0"/>-->
+<!--  <xacro:property name="bl_rgbd_y" value="${support_y/2}"/>-->
+<!--  <xacro:property name="bl_rgbd_z" value="${base_height + 0.05}"/>-->
+<!--  <xacro:property name="bl_rgbd_R" value="0.0"/> -->
+ <!-- <xacro:property name="bl_rgbd_P" value="0.0"/> --> <!-- 10.0-->
+<!--  <xacro:property name="bl_rgbd_Y" value="90.0"/>-->
+
+  <!-- bottom-right camera -->
+  <xacro:property name="br_rgbd_x" value="0.0"/>
+  <xacro:property name="br_rgbd_y" value="${-support_y/2}"/>
+  <xacro:property name="br_rgbd_z" value="${base_height + 0.05}"/>
+  <xacro:property name="br_rgbd_R" value="0.0"/>
+  <xacro:property name="br_rgbd_P" value="0.0"/><!-- 10.0-->
+  <xacro:property name="br_rgbd_Y" value="-90.0"/>
+
+  <!-- base RGBD characteristics -->
+  <xacro:property name="base_rgbd_x" value="0.22697"/>
+  <xacro:property name="base_rgbd_y" value="0.0"/>
+  <xacro:property name="base_rgbd_z" value="0.52635"/>
+  <xacro:property name="base_rgbd_R" value="-0.171709"/>
+  <xacro:property name="base_rgbd_P" value="57.9362"/>
+  <xacro:property name="base_rgbd_Y" value="0.0"/>
+
+  <!-- roof RGBD characteristics -->
+  <xacro:property name="roof_rgbd_x" value="0.18473"/>
+  <xacro:property name="roof_rgbd_y" value="0.0"/>
+  <xacro:property name="roof_rgbd_z" value="0.470428"/>
+  <xacro:property name="roof_rgbd_R" value="-0.299256"/>
+  <xacro:property name="roof_rgbd_P" value="10.596"/>
+  <xacro:property name="roof_rgbd_Y" value="0.0"/>
+
+  <!-- RGB characteristics -->
+  <xacro:property name="rgb_x" value="0.18752"/>
+  <xacro:property name="rgb_y" value="0.0"/>
+  <xacro:property name="rgb_z" value="0.3301"/>
+  <xacro:property name="rgb_R" value="0.0"/>
+  <xacro:property name="rgb_P" value="15.0"/>
+  <xacro:property name="rgb_Y" value="0.0   "/>
+
+
+  <!-- top-left RGBD -->
+<!--  <xacro:rgbd_camera name="tl_rgbd_camera" parent="base">-->
+    <!-- Pose of sensor frame wrt to base -->
+   <!-- <origin 
+      xyz="${tl_rgbd_x} ${tl_rgbd_y} ${tl_rgbd_z}" 
+	  rpy="${tl_rgbd_R * deg_to_rad} ${tl_rgbd_P * deg_to_rad} ${tl_rgbd_Y * deg_to_rad}" /> -->
+    <!-- Pose of optical frame wrt to sensor -->
+  <!--  <origin 
+      xyz="0 0 0" 
+      rpy="${-90 * deg_to_rad} 0 ${-90 * deg_to_rad}"/>
+  </xacro:rgbd_camera> -->
+
+  <!-- top-right RGBD -->
+  <xacro:rgbd_camera name="tr_rgbd_camera" parent="base">
+    <!-- Pose of sensor frame wrt to base -->
+    <origin 
+      xyz="${tr_rgbd_x} ${tr_rgbd_y} ${tr_rgbd_z}" 
+  	  rpy="${tr_rgbd_R * deg_to_rad} ${tr_rgbd_P * deg_to_rad} ${tr_rgbd_Y * deg_to_rad}" />
+    <!-- Pose of optical frame wrt to sensor -->
+    <origin 
+      xyz="0 0 0" 
+      rpy="${-90 * deg_to_rad} 0 ${-90 * deg_to_rad}"/>
+  </xacro:rgbd_camera>
+
+<!-- middle-left RGBD -->
+<!--  <xacro:rgbd_camera name="ml_rgbd_camera" parent="base">-->
+    <!-- Pose of sensor frame wrt to base -->
+    <!-- <origin 
+      xyz="${ml_rgbd_x} ${ml_rgbd_y} ${ml_rgbd_z}" 
+	  rpy="${ml_rgbd_R * deg_to_rad} ${ml_rgbd_P * deg_to_rad} ${ml_rgbd_Y * deg_to_rad}" /> -->
+    <!-- Pose of optical frame wrt to sensor -->
+   <!-- <origin 
+      xyz="0 0 0" 
+      rpy="${-90 * deg_to_rad} 0 ${-90 * deg_to_rad}"/>
+  </xacro:rgbd_camera> -->
+
+  <!-- middle-right RGBD -->
+  <xacro:rgbd_camera name="mr_rgbd_camera" parent="base">
+    <!-- Pose of sensor frame wrt to base -->
+    <origin 
+      xyz="${mr_rgbd_x} ${mr_rgbd_y} ${mr_rgbd_z}" 
+  	  rpy="${mr_rgbd_R * deg_to_rad} ${mr_rgbd_P * deg_to_rad} ${mr_rgbd_Y * deg_to_rad}" />
+    <!-- Pose of optical frame wrt to sensor -->
+    <origin 
+      xyz="0 0 0" 
+      rpy="${-90 * deg_to_rad} 0 ${-90 * deg_to_rad}"/>
+
+  </xacro:rgbd_camera>
+
+  <!-- bottom-left RGBD -->
+<!--  <xacro:rgbd_camera name="bl_rgbd_camera" parent="base">-->
+    <!-- Pose of sensor frame wrt to base -->
+    <!--<origin 
+      xyz="${bl_rgbd_x} ${bl_rgbd_y} ${bl_rgbd_z}" 
+	  rpy="${bl_rgbd_R * deg_to_rad} ${bl_rgbd_P * deg_to_rad} ${bl_rgbd_Y * deg_to_rad}" /> -->
+    <!-- Pose of optical frame wrt to sensor -->
+    <!--<origin 
+      xyz="0 0 0" 
+      rpy="${-90 * deg_to_rad} 0 ${-90 * deg_to_rad}"/>
+  </xacro:rgbd_camera> -->
+
+  <!-- bottom-right RGBD -->
+  <xacro:rgbd_camera name="br_rgbd_camera" parent="base">
+    <!-- Pose of sensor frame wrt to base -->
+    <origin 
+      xyz="${br_rgbd_x} ${br_rgbd_y} ${br_rgbd_z}" 
+	  rpy="${br_rgbd_R * deg_to_rad} ${br_rgbd_P * deg_to_rad} ${br_rgbd_Y * deg_to_rad}" />
+    <!-- Pose of optical frame wrt to sensor -->
+    <origin 
+      xyz="0 0 0" 
+      rpy="${-90 * deg_to_rad} 0 ${-90 * deg_to_rad}"/>
+  </xacro:rgbd_camera>
+
+
+  <!-- RGB -->
+<!--  <xacro:elp_rgb name="rgb_camera" parent="base">-->
+    <!-- Pose of sensor frame wrt to base -->
+<!--    <origin -->
+<!--      xyz="${rgb_x} ${rgb_y} ${rgb_z}" -->
+<!--      rpy="${rgb_R * deg_to_rad} ${rgb_P * deg_to_rad} ${rgb_Y * deg_to_rad}"/>-->
+    <!-- Pose of optical frame wrt to sensor -->
+<!--    <origin -->
+<!--      xyz="0 0 0" -->
+<!--      rpy="${-90 * deg_to_rad} 0 ${-90 * deg_to_rad}"/>-->
+<!--  </xacro:elp_rgb>-->
+
+  <!-- RGBD Laser Link -->
+<!--  <joint name="rgbd_laser_joint" type="fixed">-->
+<!--      <parent link="base_footprint"/>-->
+<!--      <child link="rgbd_laser_link"/>-->
+<!--      <origin xyz="-0.9 0 0" rpy="0 0 0" />-->
+<!--  </joint>-->
+<!--  <link name="rgbd_laser_link">-->
+<!--      <inertial>-->
+<!--          <origin xyz="0 0 0" rpy="0 0 0"/>-->
+<!--          <mass value="0.0001" />-->
+<!--          <inertia ixx="0.0001"  ixy="0"  ixz="0" iyy="0.0001" iyz="0" izz="0.0001" />-->
+<!--      </inertial>-->
+<!--  </link>-->
+
+</robot>
+
