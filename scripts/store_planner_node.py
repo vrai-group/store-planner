@@ -107,9 +107,6 @@ class storePlanner:
         #since when the robot initial pose is changed, local costmap gets erased
         self.clear_costmaps()
 
-        
-
-
     def run(self):
         
         print('Running Planner!')

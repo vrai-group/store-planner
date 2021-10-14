@@ -199,7 +199,8 @@ class Utils:
 
     @staticmethod
     def rm_dir_and_contents(directory):
-        shutil.rmtree(directory)
+        if Utils.dir_exists(directory):
+            shutil.rmtree(directory)
 
     @staticmethod
     def deg2rad(angle_deg):
